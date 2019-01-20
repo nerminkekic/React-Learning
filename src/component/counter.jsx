@@ -1,18 +1,19 @@
 import React, { Component } from "react";
+import Counters from "./counters";
 
 class Counter extends Component {
   state = {
-    count: 0,
-    tags: ["tag1", "tag2", "tag3"],
-    product: ["eggs", "chocolate", "cheese", "juice"]
+    value: this.props.value
   };
 
   render() {
+    console.log(this.props);
     return (
       <div>
+        <h3> Counter #{this.props.id}</h3>
         <span className={this.getButtonClasses()}>{this.formatCount()}</span>
         <button
-          onClick={() => this.handleIncriment(this.state.product[2])}
+          onClick={() => this.handleIncriment()}
           className="btn btn-secondary btn-sm"
         >
           Increment
@@ -20,19 +21,18 @@ class Counter extends Component {
       </div>
     );
   }
-  handleIncriment = product => {
-    console.log(product);
-    this.setState({ count: this.state.count + 1 });
+  handleIncriment = () => {
+    this.setState({ value: this.state.value + 1 });
   };
   getButtonClasses() {
     let className = "btn m-2 btn-";
-    const { count } = this.state;
-    className += count === 0 ? "warning" : "primary";
+    const { value } = this.state;
+    className += value === 0 ? "warning" : "primary";
     return className;
   }
   formatCount() {
-    const { count } = this.state;
-    return count === 0 ? "Zero" : count;
+    const { value } = this.state;
+    return value === 0 ? "Zero" : value;
   }
 }
 
