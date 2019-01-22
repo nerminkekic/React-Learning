@@ -13,10 +13,16 @@ class Counter extends Component {
         <h3> Counter #{this.props.id}</h3>
         <span className={this.getButtonClasses()}>{this.formatCount()}</span>
         <button
-          onClick={() => this.handleIncriment()}
+          onClick={this.handleIncriment}
           className="btn btn-secondary btn-sm"
         >
           Increment
+        </button>
+        <button
+          onClick={() => this.props.onDelete(this.props.id)}
+          className="btn btn-danger btn-sm m-2"
+        >
+          Delete
         </button>
       </div>
     );
