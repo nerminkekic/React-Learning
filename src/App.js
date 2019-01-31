@@ -13,14 +13,31 @@ class App extends Component {
     ],
     name: "Nermin"
   };
-
+  //Constructor
+  constructor() {
+    super();
+    console.log("App - constructor");
+  }
+  componentDidMount() {
+    console.log("App - mounted");
+  }
   handleIncrement = counter => {
     const counters = [...this.state.counters];
     const index = counters.indexOf(counter);
     counters[index] = { ...counter };
     counters[index].value++;
     this.setState({ counters: counters });
-    console.log(counters[index].value);
+  };
+
+  handleDecrement = counter => {
+    const counters = [...this.state.counters];
+    const index = counters.indexOf(counter);
+
+    //check if value is less then zero
+    if (counters[index].value > 0) {
+      counters[index].value--;
+      this.setState({ counters: counters });
+    }
   };
   handleDelete = counterId => {
     const counters = this.state.counters.filter(c => c.id !== counterId);
@@ -35,7 +52,7 @@ class App extends Component {
     this.setState({ counters: counters });
   };
   render() {
-    console.log(this.props);
+    console.log("App - rendered");
     return (
       <div>
         <NavBar
@@ -47,7 +64,7 @@ class App extends Component {
             onDelete={this.handleDelete}
             onReset={this.handleReset}
             onIncrement={this.handleIncrement}
-            name={this.state.name}
+            onDecrement={this.handleDecrement}
           />
         </main>
       </div>
