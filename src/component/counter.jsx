@@ -2,24 +2,19 @@ import React, { Component } from "react";
 import Counters from "./counters";
 
 class Counter extends Component {
-  state = {
-    value: this.props.value
-  };
-
   render() {
-    console.log(this.props);
     return (
       <div>
-        <h3> Counter #{this.props.id}</h3>
+        <h3> Counter #{this.props.counter.id}</h3>
         <span className={this.getButtonClasses()}>{this.formatCount()}</span>
         <button
-          onClick={this.handleIncriment}
+          onClick={() => this.props.onIncrement(this.props.counter)}
           className="btn btn-secondary btn-sm"
         >
           Increment
         </button>
         <button
-          onClick={() => this.props.onDelete(this.props.id)}
+          onClick={() => this.props.onDelete(this.props.counter.id)}
           className="btn btn-danger btn-sm m-2"
         >
           Delete
@@ -27,17 +22,15 @@ class Counter extends Component {
       </div>
     );
   }
-  handleIncriment = () => {
-    this.setState({ value: this.state.value + 1 });
-  };
+
   getButtonClasses() {
     let className = "btn m-2 btn-";
-    const { value } = this.state;
+    const { value } = this.props.counter;
     className += value === 0 ? "warning" : "primary";
     return className;
   }
   formatCount() {
-    const { value } = this.state;
+    const { value } = this.props.counter;
     return value === 0 ? "Zero" : value;
   }
 }
